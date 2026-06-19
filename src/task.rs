@@ -3,10 +3,10 @@ pub struct Task {
     pub body: String,
 }
 impl Task {
-    pub fn new() -> Self {
+    pub fn new(p_name: String, p_body: String) -> Self {
         Self {
-            name: String::new(),
-            body: String::new(),
+            name: p_name,
+            body: p_body,
         }
     }
 }

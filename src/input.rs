@@ -5,6 +5,7 @@ pub enum InputTypes {
     Open,
     Edit,
     Create,
+    Delete,
     ExitApp,
     Unknown,
 }
@@ -24,6 +25,7 @@ pub fn get_input() -> InputTypes {
         "open"   => InputTypes::Open,
         "edit"   => InputTypes::Edit,
         "create" => InputTypes::Create,
+        "delete" => InputTypes::Delete,
         "exit"   => InputTypes::ExitApp,
         _        => InputTypes::Unknown,
     }
