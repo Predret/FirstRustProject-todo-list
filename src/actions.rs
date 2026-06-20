@@ -39,11 +39,36 @@ pub fn edit_task(tasks: &mut Vec<Task>){
     let mut buffer: String = String::new();
     stdin().read_line(&mut buffer).expect("Failed to read line");
     let target_name: String = buffer.trim().to_string();
-    if target_name.is_empty()
-    {
+    if target_name.is_empty(){
         println!("Cancelled");
         return;
     }
+    let Some(found_task)  = tasks.iter_mut().find(|task| task.name == target_name)
+    else{
+        println!("No task found; cancelled.");
+        return;
+    };
+    print!("(Tap enter to skip renaming) Change name to: ");
+    _ = std::io::stdout().flush();
+    buffer.clear();
+    stdin().read_line(&mut buffer).expect("Failed to read line");
+    let name_changed_to: String = buffer.trim().to_string();
+    if name_changed_to.is_empty(){
+        println!("Skipped renaming");
+    }
+    else {
+        found_task.name = name_changed_to;
+    }
+    println!("(Tap enter to skip) Change body to: ");
+    buffer.clear();
+    stdin().read_line(&mut buffer).expect("Failed to read line");
+    let body_changed_to: String = buffer.trim().to_string();
+    if body_changed_to.is_empty()
+    {
+        println!("Skipped");
+        return;
+    }
+    found_task.body = body_changed_to;
 }
 
 pub fn delete_task(tasks: &mut Vec<Task>){
@@ -57,7 +82,6 @@ pub fn delete_task(tasks: &mut Vec<Task>){
         println!("Cancelled deletion.");
         return;
     }
-    tasks.retain(|task| task.name != target_name);
     let found_task = tasks.iter().find(|task| task.name == target_name);
     match found_task {
         Some(task) => {
@@ -67,6 +91,7 @@ pub fn delete_task(tasks: &mut Vec<Task>){
             println!("Could not find task to delete.");
         }
     }
+    tasks.retain(|task| task.name != target_name);
 
 }
 

@@ -4,8 +4,7 @@ mod actions;
 
 use input::*;
 use task::*;
-
-use crate::actions::{create_task, delete_task, list_all_tasks, open_task};
+use actions::*;
  
 fn main() {
     let mut tasks: Vec<Task> = Vec::new();
@@ -24,7 +23,7 @@ fn main() {
             InputTypes::Help    => println!("{}", help_message),
             InputTypes::List    => println!("{}", list_all_tasks(&mut tasks)),
             InputTypes::Open    => open_task(&mut tasks),
-            InputTypes::Edit    => println!("editing stuff"),
+            InputTypes::Edit    => edit_task(&mut tasks),
             InputTypes::Delete  => delete_task(&mut tasks),
             InputTypes::Create  => create_task(&mut tasks),
             InputTypes::ExitApp => break,
